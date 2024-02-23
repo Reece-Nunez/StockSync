@@ -1,6 +1,6 @@
-package Repository;
+package com.nunezdev.inventory_manager.repository;
 
-import Entity.AppUser;
+import com.nunezdev.inventory_manager.entity.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<AppUser, Long> {

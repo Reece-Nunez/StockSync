@@ -1,4 +1,4 @@
-package Dto;
+package com.nunezdev.inventory_manager.dto;
 
 import lombok.*;
 

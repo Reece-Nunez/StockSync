@@ -1,9 +1,9 @@
-package Impl;
+package com.nunezdev.inventory_manager.impl;
 
-import Dto.UserDTO;
-import Entity.AppUser;
-import Repository.UserRepository;
-import Service.UserService;
+import com.nunezdev.inventory_manager.entity.AppUser;
+import com.nunezdev.inventory_manager.service.UserService;
+import com.nunezdev.inventory_manager.dto.UserDTO;
+import com.nunezdev.inventory_manager.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

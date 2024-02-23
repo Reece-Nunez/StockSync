@@ -1,7 +1,7 @@
 package Test;
 
-import Dto.PasswordDTO;
-import Dto.UserDTO;
+import com.nunezdev.inventory_manager.dto.PasswordDTO;
+import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;

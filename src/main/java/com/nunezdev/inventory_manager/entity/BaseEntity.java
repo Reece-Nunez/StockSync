@@ -1,4 +1,4 @@
-package Entity;
+package com.nunezdev.inventory_manager.entity;
 
 import jakarta.persistence.*;
 

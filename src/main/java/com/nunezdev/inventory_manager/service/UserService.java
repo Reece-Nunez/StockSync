@@ -1,8 +1,8 @@
-package Service;
+package com.nunezdev.inventory_manager.service;
 
 
-import Dto.UserDTO;
-import Entity.AppUser;
+import com.nunezdev.inventory_manager.dto.UserDTO;
+import com.nunezdev.inventory_manager.entity.AppUser;
 import org.springframework.stereotype.Service;
 
 @Service

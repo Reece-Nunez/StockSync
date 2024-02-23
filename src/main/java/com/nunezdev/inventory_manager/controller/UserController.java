@@ -1,12 +1,11 @@
-package Controller;
+package com.nunezdev.inventory_manager.controller;
 
-import Dto.PasswordDTO;
-import Dto.UserDTO;
-import Entity.AppUser;
-import Service.UserService;
+import com.nunezdev.inventory_manager.dto.PasswordDTO;
+import com.nunezdev.inventory_manager.dto.UserDTO;
+import com.nunezdev.inventory_manager.entity.AppUser;
+import com.nunezdev.inventory_manager.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
