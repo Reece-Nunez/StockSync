@@ -1,16 +1,17 @@
 package Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Table(name = "products")
+@Getter @Setter @ToString @NoArgsConstructor
 public class Product extends BaseEntity {
 
     @NotNull

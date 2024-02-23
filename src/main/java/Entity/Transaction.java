@@ -2,15 +2,15 @@ package Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Table(name = "transactions")
+@Getter @Setter @ToString @NoArgsConstructor
 public class Transaction extends BaseEntity {
 
     @ManyToOne

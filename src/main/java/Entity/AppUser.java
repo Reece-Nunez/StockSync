@@ -3,6 +3,7 @@ package Entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -15,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Table(name = "users")
+@Getter @Setter @NoArgsConstructor @ToString
 public class AppUser extends BaseEntity {
 
     @NotNull
