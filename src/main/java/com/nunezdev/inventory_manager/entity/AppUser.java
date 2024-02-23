@@ -1,9 +1,6 @@
 package com.nunezdev.inventory_manager.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -18,7 +15,11 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter @NoArgsConstructor @ToString
-public class AppUser extends BaseEntity {
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     @Size(min = 5, max = 12)
@@ -37,6 +38,10 @@ public class AppUser extends BaseEntity {
     public void setPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.password = encoder.encode(password);
+    }
+
+    public boolean hasRole(String role) {
+        return this.role != null && this.role.equals(role);
     }
 
     public void addTransaction(Transaction transaction) {
