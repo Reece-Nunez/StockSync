@@ -22,7 +22,7 @@ public class Role {
     private long id;
 
     @NotNull
-    @Size(min = 5, max = 12)
+    @Size(min = 2, max = 12)
     @Column(unique = true)
     private String name;
 }
