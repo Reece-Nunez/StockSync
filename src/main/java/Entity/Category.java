@@ -12,10 +12,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Category {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+public class Category extends BaseEntity {
+
     private String name;
     private String description;
 }

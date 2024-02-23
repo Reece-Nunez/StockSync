@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class Transaction {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+public class Transaction extends BaseEntity {
+
     @ManyToOne
     private Product product;
     @ManyToOne
