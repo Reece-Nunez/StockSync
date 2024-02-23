@@ -34,7 +34,7 @@ public class UserControllerIntegrationTest {
         // Step 1: Create a user
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("testuser");
-        userDTO.setRole("USER");
+        userDTO.setRoleName("USER");
         String userJson = objectMapper.writeValueAsString(userDTO);
 
         MvcResult createUserResult = mockMvc.perform(post("/api/users")

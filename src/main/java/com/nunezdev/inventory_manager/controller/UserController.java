@@ -3,6 +3,8 @@ package com.nunezdev.inventory_manager.controller;
 import com.nunezdev.inventory_manager.dto.PasswordDTO;
 import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.entity.AppUser;
+import com.nunezdev.inventory_manager.entity.Role;
+import com.nunezdev.inventory_manager.service.RoleService;
 import com.nunezdev.inventory_manager.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +15,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, RoleService roleService){
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        AppUser appUser = userService.createUser(userDTO.getUsername(), userDTO.getRole(), userDTO.getPassword());
+
+        Role role = roleService.findByName(userDTO.getRoleName());
+
+        if (role == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        AppUser appUser = userService.createUser(userDTO.getUsername(), role, userDTO.getPassword());
         UserDTO createdUser = userService.convertToDTO(appUser);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }

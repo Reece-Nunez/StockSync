@@ -10,7 +10,9 @@ import lombok.ToString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,8 +31,11 @@ public class AppUser {
     @Size(min = 5, max = 8)
     private String password;
 
+
     @NotNull
-    private String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
@@ -40,8 +45,8 @@ public class AppUser {
         this.password = encoder.encode(password);
     }
 
-    public boolean hasRole(String role) {
-        return this.role != null && this.role.equals(role);
+    public boolean hasRole(String roleName) {
+        return this.role != null && this.role.getName().equals(roleName);
     }
 
     public void addTransaction(Transaction transaction) {

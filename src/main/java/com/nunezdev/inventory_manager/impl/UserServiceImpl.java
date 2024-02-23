@@ -1,6 +1,7 @@
 package com.nunezdev.inventory_manager.impl;
 
 import com.nunezdev.inventory_manager.entity.AppUser;
+import com.nunezdev.inventory_manager.entity.Role;
 import com.nunezdev.inventory_manager.service.UserService;
 import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.repository.UserRepository;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AppUser createUser(String username, String role, String rawPassword) {
+    public AppUser createUser(String username, Role role, String rawPassword) {
         AppUser appUser = new AppUser();
         appUser.setUsername(username);
         appUser.setRole(role);
