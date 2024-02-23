@@ -1,30 +1,15 @@
 package Service;
 
 
+import Dto.UserDTO;
 import Entity.AppUser;
-import Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
-
-    private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public AppUser createUser(String username, String password, String role) {
-        AppUser appUser = new AppUser();
-        appUser.setUsername(username);
-        appUser.setPassword(password);
-        appUser.setRole(role);
-        userRepository.save(appUser);
-        return appUser;
-    }
-
-    public void changePassword(AppUser appUser, String newPassword) {
-        appUser.setPassword(newPassword);
-        userRepository.save(appUser);
-    }
+public interface UserService {
+    AppUser createUser(String username, String password);
+    void changePassword(AppUser appUser, String newPassword);
+    AppUser findById(long id);
+    UserDTO convertToDTO(AppUser appUser);
+    AppUser convertToEntity(UserDTO userDTO);
 }
