@@ -23,12 +23,8 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @Size(min = 5, max = 12)
     private String username;
 
-    @NotNull
-    @Size(min = 5, max = 8)
     private String password;
 
 
