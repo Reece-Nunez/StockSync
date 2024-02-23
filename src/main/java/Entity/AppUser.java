@@ -44,4 +44,9 @@ public class AppUser extends BaseEntity {
         transactions.add(transaction);
         transaction.setAppUser(this);
     }
+
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
+        transaction.setAppUser(null);
+    }
 }
