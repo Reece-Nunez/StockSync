@@ -6,10 +6,12 @@ import com.nunezdev.inventory_manager.service.UserService;
 import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,28 +23,24 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    private final ModelMapper modelMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
-    public AppUser createUser(String username, Role role, String rawPassword) {
+    public AppUser createUser(String username, Role role, String password) {
         AppUser appUser = new AppUser();
         appUser.setUsername(username);
         appUser.setRole(role);
-        appUser.setPassword(passwordEncoder.encode(rawPassword));
-        userRepository.save(appUser);
-        return appUser;
+        appUser.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(appUser);
     }
 
     @Override
