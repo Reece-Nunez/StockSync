@@ -5,6 +5,8 @@ import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.entity.AppUser;
 import com.nunezdev.inventory_manager.entity.Role;
 import com.nunezdev.inventory_manager.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,5 @@ public interface UserService {
     UserDTO convertToDTO(AppUser appUser);
     AppUser convertToEntity(UserDTO userDTO);
     AppUser getCurrentUser();
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

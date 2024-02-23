@@ -6,8 +6,18 @@ import com.nunezdev.inventory_manager.service.UserService;
 import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -43,7 +53,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AppUser getCurrentUser() {
-        return userRepository.findByUsername("admin");
+        return userRepository.findByUsername("admin")
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: admin"));
     }
 
     @Override
@@ -59,7 +70,24 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userDTO, AppUser.class);
     }
 
-    public AppUser loadUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+        return new org.springframework.security.core.userdetails.User(
+                appUser.getUsername(),
+                appUser.getPassword(),
+                true, true, true, true,
+                getAuthorities(appUser));
+
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(AppUser appUser) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (appUser.getRole() != null) {
+            authorities.add(new SimpleGrantedAuthority(appUser.getRole().getName()));
+        }
+        return authorities;
     }
 }
