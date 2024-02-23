@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        AppUser appUser = userService.createUser(userDTO.getUsername(), userDTO.getRole());
+        AppUser appUser = userService.createUser(userDTO.getUsername(), userDTO.getRole(), userDTO.getPassword());
         UserDTO createdUser = userService.convertToDTO(appUser);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
@@ -28,10 +28,16 @@ public class UserController {
     @PutMapping("/{id}/password")
     public ResponseEntity<?> setPassword(@PathVariable long id, @RequestBody PasswordDTO passwordDTO) {
         try {
+            AppUser currentUser = userService.getCurrentUser();
+            if (currentUser == null || (currentUser.getId() != id && !currentUser.hasRole("ADMIN"))) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to change the password");
+            }
+
             AppUser appUser = userService.findById(id);
             if (appUser == null) {
                 return ResponseEntity.notFound().build();
             }
+
             userService.changePassword(appUser, passwordDTO.getNewPassword());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
