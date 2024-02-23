@@ -16,7 +16,7 @@ public class Transaction extends BaseEntity {
     @ManyToOne
     private Product product;
     @ManyToOne
-    private User user;
+    private AppUser appUser;
     private Integer quantity;
     private LocalDateTime transactionTime;
     private String transactionType; // Could be either "buy" or "sell"
