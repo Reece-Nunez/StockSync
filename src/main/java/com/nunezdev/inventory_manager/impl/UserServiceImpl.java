@@ -5,6 +5,7 @@ import com.nunezdev.inventory_manager.service.UserService;
 import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -15,24 +16,33 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public AppUser createUser(String username, String role) {
+    public AppUser createUser(String username, String role, String rawPassword) {
         AppUser appUser = new AppUser();
         appUser.setUsername(username);
         appUser.setRole(role);
+        appUser.setPassword(passwordEncoder.encode(rawPassword));
         userRepository.save(appUser);
         return appUser;
     }
 
     @Override
     public void changePassword(AppUser appUser, String newPassword) {
-        appUser.setPassword(newPassword);
+        appUser.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(appUser);
+    }
+
+    @Override
+    public AppUser getCurrentUser() {
+        return userRepository.findByUsername("admin");
     }
 
     @Override
