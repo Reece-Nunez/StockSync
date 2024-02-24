@@ -1,17 +1,17 @@
 package com.nunezdev.inventory_manager.impl;
 
+import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.entity.AppUser;
 import com.nunezdev.inventory_manager.entity.Role;
-import com.nunezdev.inventory_manager.service.UserService;
-import com.nunezdev.inventory_manager.dto.UserDTO;
 import com.nunezdev.inventory_manager.repository.UserRepository;
+import com.nunezdev.inventory_manager.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -36,11 +35,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public AppUser createUser(String username, Role role, String password) {
-        AppUser appUser = new AppUser();
-        appUser.setUsername(username);
-        appUser.setRole(role);
-        appUser.setPassword(passwordEncoder.encode(password));
-        return userRepository.save(appUser);
+        AppUser newUser = new AppUser();
+        newUser.setUsername(username);
+        newUser.setRole(role);
+        newUser.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(newUser);
     }
 
     @Override
@@ -51,8 +50,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public AppUser getCurrentUser() {
-        return userRepository.findByUsername("admin")
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: admin"));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        return userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + currentUsername));
     }
 
     @Override
