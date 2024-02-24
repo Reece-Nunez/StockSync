@@ -1,10 +1,7 @@
 package com.nunezdev.inventory_manager.config;
 
-import com.nunezdev.inventory_manager.impl.UserServiceImpl;
-import com.nunezdev.inventory_manager.repository.UserRepository;
 import com.nunezdev.inventory_manager.security.JwtAuthenticationFilter;
 import com.nunezdev.inventory_manager.security.JwtTokenProvider;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,7 +54,9 @@ public class SecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
