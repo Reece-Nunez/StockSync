@@ -90,4 +90,18 @@ public class UserServiceImpl implements UserService {
         }
         return authorities;
     }
+
+    @Override
+    public AppUser findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
+    @Override
+    public AppUser deleteUser(Long id) {
+        AppUser appUser = userRepository.findById(id)
+               .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
+        userRepository.delete(appUser);
+        return appUser;
+    }
 }

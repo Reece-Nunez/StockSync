@@ -21,6 +21,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -127,6 +128,37 @@ public class UserController {
         } catch (AuthenticationException e) {
             // General authentication exception
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody LoginRequest loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
+
+            AppUser currentUser = userService.findByUsername(loginRequest.getUsername());
+
+            Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
+            boolean isSelfDeletion = currentAuthentication.getName().equals(currentUser.getUsername());
+
+            if (!isSelfDeletion) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to delete this user");
+            }
+
+            userService.deleteUser(currentUser.getId());
+            return ResponseEntity.ok().body("User successfully deleted");
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getMessage());
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found: " + e.getMessage());
+        }catch (Exception e) {
+            logger.error("An error occurred while deleting user with username: {}", loginRequest.getUsername(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting user");
         }
     }
 }

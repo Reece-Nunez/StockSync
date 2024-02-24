@@ -20,4 +20,8 @@ public interface UserService {
     AppUser convertToEntity(UserDTO userDTO);
     AppUser getCurrentUser();
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    AppUser findByUsername(String username);
+
+    AppUser deleteUser(Long id);
 }
