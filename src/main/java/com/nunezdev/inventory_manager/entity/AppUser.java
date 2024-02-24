@@ -36,10 +36,6 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
 
-    public void setPassword(String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = encoder.encode(password);
-    }
 
     public boolean hasRole(String roleName) {
         return this.role != null && this.role.getName().equals(roleName);
