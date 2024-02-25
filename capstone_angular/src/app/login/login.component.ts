@@ -16,6 +16,7 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
+        localStorage.setItem('token', response.token);
         alert('Login successful')
       },
       error: (error) => {
