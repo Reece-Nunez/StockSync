@@ -13,6 +13,7 @@ import {MatCardModule} from "@angular/material/card";
 import { NavigationComponent } from './navigation/navigation.component';
 import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],
