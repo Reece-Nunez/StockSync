@@ -8,11 +8,11 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="user.password" name="password"type="password">
+        <input matInput [(ngModel)]="user.password" name="password" type="password" required>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Role</mat-label>
-        <mat-select [(ngModel)]="user.roleName" name="roleName" required>
+        <mat-select [(ngModel)]="user.roleName" name="roleName">
           <mat-option value="ADMIN">ADMIN</mat-option>
           <mat-option value="USER">USER</mat-option>
         </mat-select>
