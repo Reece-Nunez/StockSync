@@ -9,7 +9,8 @@ import {UserService} from "../service/UserService";
 export class RegisterComponent {
   user = {
     username: '',
-    password: ''
+    password: '',
+    roleName: ''
   }
 
   constructor(private userService: UserService) { }
