@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
+import { ProductService } from '../service/product/product.service';
 import { Product } from '../product.model'; // Your product model
 
 @Component({
@@ -9,6 +9,7 @@ import { Product } from '../product.model'; // Your product model
 })
 export class DashboardComponent implements OnInit {
   products: Product[] = [];
+
 
   constructor(private productService: ProductService) {}
 
