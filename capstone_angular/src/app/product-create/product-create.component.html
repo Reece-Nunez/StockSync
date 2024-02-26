@@ -1,17 +1,26 @@
-<mat-card>
-  <form #productForm="ngForm" (ngSubmit)="createProduct()">
-    <mat-form-field>
-      <input matInput placeholder="Name" [(ngModel)]="product.name" name="name" required>
-    </mat-form-field>
-    <mat-form-field>
-      <textarea matInput placeholder="Description" [(ngModel)]="product.description" name="description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Price" type="number" [(ngModel)]="product.price" name="price" required>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Quantity" type="number" [(ngModel)]="product.quantity" name="quantity" required>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Create Product</button>
-  </form>
-</mat-card>
+<div class="create-product-content">
+  <mat-card>
+    <form style="padding: 20px;" fxLayout="column" fxLayoutAlign="center center" #productForm="ngForm" (ngSubmit)="createProduct()">
+      <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="product.name" name="name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" [(ngModel)]="product.description" name="description"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+          <input matInput placeholder="Price" type="tel" [(ngModel)]="product.price" name="price" required (keydown)="validateNumber($event)" (input)="formatPrice($event)">
+        <span matPrefix>$&nbsp;</span>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Quantity" type="number" [(ngModel)]="product.quantity" name="quantity" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Cateogry</mat-label>
+        <input matInput placeholder="Category" [(ngModel)]="product.category" name="category">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Create Product</button>
+    </form>
+  </mat-card>
+</div>
+

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/product/product.service';
 import { Product } from '../model/product.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
   totalProducts: number = 0;
   totalQuantity: number = 0;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
@@ -34,4 +35,18 @@ export class DashboardComponent implements OnInit {
       return acc + (product.quantity !== null ? product.quantity : 0);
     }, 0);
   }
+
+  deleteProduct(product: Product): void {
+    if (!product.id) return;
+    this.productService.deleteProduct(product.id).subscribe({
+      next: () => {
+        alert('Product deleted successfully!');
+        this.products = this.products.filter(p => p.id!== product.id);
+      },
+      error: (error) => console.error(error),
+    })
+  }
+
+  updateProduct(product: Product): void {
+    this.router.navigate(['/products/update', product.id]);  }
 }
