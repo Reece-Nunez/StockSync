@@ -19,6 +19,7 @@ import {AuthInterceptor} from "./auth.interceptor";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {FlexModule} from "@angular/flex-layout";
+import { ProductCreateComponent } from './product-create/product-create.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FlexModule} from "@angular/flex-layout";
     LoginComponent,
     NavigationComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProductCreateComponent
   ],
   imports: [
     BrowserModule,

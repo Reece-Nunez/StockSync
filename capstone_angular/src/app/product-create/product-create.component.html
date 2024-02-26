@@ -1,0 +1,17 @@
+<mat-card>
+  <form #productForm="ngForm" (ngSubmit)="createProduct()">
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="product.name" name="name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="product.description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Price" type="number" [(ngModel)]="product.price" name="price" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Quantity" type="number" [(ngModel)]="product.quantity" name="quantity" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Create Product</button>
+  </form>
+</mat-card>

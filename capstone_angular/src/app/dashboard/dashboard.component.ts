@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
 
   private calculateTotals(): void {
     this.totalProducts = this.products.length;
-    this.totalQuantity = this.products.reduce((acc, product) => acc + product.quantity, 0);
+    this.totalQuantity = this.products.reduce((acc, product) => {
+      return acc + (product.quantity !== null ? product.quantity : 0);
+    }, 0);
   }
 }
