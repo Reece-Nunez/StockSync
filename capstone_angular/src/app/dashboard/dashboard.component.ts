@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/product/product.service';
-import { Product } from '../product.model'; // Your product model
+import { Product } from '../model/product.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,18 +9,27 @@ import { Product } from '../product.model'; // Your product model
 })
 export class DashboardComponent implements OnInit {
   products: Product[] = [];
-
+  totalProducts: number = 0;
+  totalQuantity: number = 0;
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(
-      (data: Product[]) => {
+    this.productService.getProducts().subscribe({
+      next: (data: Product[]) => {
         this.products = data;
+        this.calculateTotals();
       },
-      error => {
+      error: (error) => {
         console.error('There was an error!', error);
-      }
-    );
+      },
+      complete: () => console.log('Product fetching completed') // Optional
+    });
+
+  }
+
+  private calculateTotals(): void {
+    this.totalProducts = this.products.length;
+    this.totalQuantity = this.products.reduce((acc, product) => acc + product.quantity, 0);
   }
 }
