@@ -16,7 +16,7 @@
         <input matInput placeholder="Quantity" type="number" [(ngModel)]="product.quantity" name="quantity" required>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Cateogry</mat-label>
+        <mat-label>Category</mat-label>
         <mat-select [(ngModel)]="product.category" name="category">
           <mat-option *ngFor="let category of categories" [value]="category.id">
             {{ category }}
