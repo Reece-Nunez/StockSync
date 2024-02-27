@@ -1,3 +1,9 @@
+<div class="search-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applySearch($event.target.value)" placeholder="Search by name or category">
+  </mat-form-field>
+</div>
 <div class="summary">
   <div style="margin-bottom: 10em;" class="totals" fxLayout="row" fxLayoutGap="20px">
     <h2>Total Products: {{ totalProducts }}</h2>

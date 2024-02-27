@@ -17,7 +17,11 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Cateogry</mat-label>
-        <input matInput placeholder="Category" [(ngModel)]="product.category" name="category">
+        <mat-select [(ngModel)]="product.category" name="category">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{ category }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Create Product</button>
     </form>

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {ProductService} from "../service/product/product.service";
 import {Router} from "@angular/router";
+import {CategoryService} from "../service/category/category.service";
+import {Product} from "../model/product.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-product-create',
@@ -13,19 +16,47 @@ export class ProductCreateComponent {
     description: '',
     price: '0.00',
     quantity: null,
-    category: ''
+    category: undefined
   };
 
-  constructor(private productService: ProductService, private router: Router) { }
+  categories: any[] = [];
 
-  createProduct() {
-    this.productService.createProduct(this.product).subscribe({
+  constructor(private productService: ProductService, private categoryService: CategoryService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.fetchCategories();
+  }
+
+  fetchCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (categories) => this.categories = categories,
+      error: (error) => console.error(error)
+    });
+  }
+
+  createProduct(product: Partial<Product>): Observable<any> {
+    // Check if the category is new and needs to be added to the database
+    if (!this.categories.find(c => c.name === this.product.category)) {
+      this.categoryService.addCategory({ name: this.product.category }).subscribe({
+        next: (category) => {
+          this.product.category = category.id; // Use the new category's ID
+          this.submitProduct(); // Now submit the product with the new category
+        },
+        error: (error) => console.error(error)
+      });
+    } else {
+      this.submitProduct(); // Submit the product if the category already exists
+    }
+  }
+
+  submitProduct() {
+    this.productService.createProduct(this.product as Product).subscribe({
       next: (data) => {
         console.log(data);
         alert('Product created successfully!');
         this.router.navigate(['/dashboard']);
       },
-      error: (error) => console.error(error),
+      error: (error) => console.error(error)
     });
   }
 

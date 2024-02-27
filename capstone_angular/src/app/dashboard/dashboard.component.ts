@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
   products: Product[] = [];
+  allProducts: Product[] = [];
   totalProducts: number = 0;
   totalQuantity: number = 0;
 
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
+        this.allProducts = data;
         this.products = data;
         this.calculateTotals();
       },
@@ -26,7 +28,18 @@ export class DashboardComponent implements OnInit {
       },
       complete: () => console.log('Product fetching completed') // Optional
     });
+  }
 
+  applySearch(searchTerm: string): void {
+    if (!searchTerm) {
+      this.products = this.allProducts;
+    } else {
+      this.products = this.allProducts.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.category && product.category.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    this.calculateTotals();
   }
 
   private calculateTotals(): void {
