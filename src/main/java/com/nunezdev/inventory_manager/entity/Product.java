@@ -26,4 +26,7 @@ public class Product extends BaseEntity {
 
     @NotNull
     private Integer quantity;
+
+    @ManyToOne
+    private Category category;
 }

@@ -13,4 +13,7 @@ public interface ProductService {
     ProductDTO getProductById(Long id);
     List<ProductDTO> getAllProducts();
     void deleteProduct(Long id);
+    List<ProductDTO> searchProducts(String searchTerm);
+    List<ProductDTO> searchByProductName(String productName);
+    List<ProductDTO> searchByCategoryName(String categoryName);
 }

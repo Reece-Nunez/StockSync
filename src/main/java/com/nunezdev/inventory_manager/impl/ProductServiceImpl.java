@@ -64,4 +64,20 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductDTO> searchByCategoryName(String categoryName) {
+        return productRepository.findByCategoryNameContainingIgnoreCase(categoryName)
+            .stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+    }
+
+    private ProductDTO convertToDto(Product product) {
+        ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+        if(product.getCategory() != null) {
+            productDTO.setCategoryName(product.getCategory().getName());
+        }
+        return productDTO;
+    }
 }
