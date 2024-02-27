@@ -1,6 +1,6 @@
 <div class="create-product-content">
   <mat-card>
-    <form style="padding: 20px;" fxLayout="column" fxLayoutAlign="center center" #productForm="ngForm" (ngSubmit)="createProduct()">
+    <form style="padding: 20px;" fxLayout="column" fxLayoutAlign="center center" #productForm="ngForm" (ngSubmit)="createProduct(product)">
       <mat-form-field>
         <input matInput placeholder="Name" [(ngModel)]="product.name" name="name" required>
       </mat-form-field>

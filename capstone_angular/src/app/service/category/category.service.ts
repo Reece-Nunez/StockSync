@@ -14,7 +14,7 @@ export class CategoryService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  addCategory(category: { name: string }): Observable<any> {
+  addCategory(category: { name: undefined }): Observable<any> {
     return this.http.post<any>(this.apiUrl, category);
   }
 }

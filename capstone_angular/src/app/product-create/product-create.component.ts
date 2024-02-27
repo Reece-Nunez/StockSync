@@ -34,7 +34,7 @@ export class ProductCreateComponent {
     });
   }
 
-  createProduct(product: Partial<Product>): Observable<any> {
+  createProduct(product: Partial<Product>): void {
     // Check if the category is new and needs to be added to the database
     if (!this.categories.find(c => c.name === this.product.category)) {
       this.categoryService.addCategory({ name: this.product.category }).subscribe({
@@ -50,7 +50,12 @@ export class ProductCreateComponent {
   }
 
   submitProduct() {
-    this.productService.createProduct(this.product as Product).subscribe({
+    const submissionProduct: Product = {
+      ...this.product,
+      category: this.product.category ?? null
+    };
+
+    this.productService.createProduct(submissionProduct).subscribe({
       next: (data) => {
         console.log(data);
         alert('Product created successfully!');

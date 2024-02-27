@@ -62,4 +62,6 @@ export class DashboardComponent implements OnInit {
 
   updateProduct(product: Product): void {
     this.router.navigate(['/products/update', product.id]);  }
+
+  protected readonly HTMLInputElement = HTMLInputElement;
 }
