@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../service/product/product.service";
 import {Router} from "@angular/router";
 import {CategoryService} from "../service/category/category.service";
 import {Product} from "../model/product.model";
 import {Observable} from "rxjs";
+import {CategoryModel} from "../model/category.model";
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
-export class ProductCreateComponent {
+export class ProductCreateComponent implements OnInit {
   product = {
     name: '',
     description: '',
@@ -19,13 +20,15 @@ export class ProductCreateComponent {
     category: undefined
   };
 
-  categories: any[] = [];
+  categories: CategoryModel[] = [];
 
   constructor(private productService: ProductService, private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchCategories();
   }
+
+
 
   fetchCategories(): void {
     this.categoryService.getCategories().subscribe({
