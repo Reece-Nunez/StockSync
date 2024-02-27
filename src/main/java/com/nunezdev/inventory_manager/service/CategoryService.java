@@ -3,6 +3,7 @@ package com.nunezdev.inventory_manager.service;
 import com.nunezdev.inventory_manager.dto.CategoryDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -13,4 +14,6 @@ public interface CategoryService {
     CategoryDTO getCategoryById(Long id);
     List<CategoryDTO> getAllCategories();
     void deleteCategory(Long id);
+
+    List<CategoryDTO> searchCategories(String searchTerm);
 }

@@ -40,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO createProduct(ProductDTO productDto) {
+        validateProductDTO(productDto);
         Product product = modelMapper.map(productDto, Product.class);
         Product savedProduct = productRepository.save(product);
         return modelMapper.map(savedProduct, ProductDTO.class);
@@ -47,16 +48,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    // Map the DTO to the existing entity
-                    modelMapper.map(productDTO, product);
-                    // Save the updated entity
-                    Product updatedProduct = productRepository.save(product);
-                    // Return the updated DTO
-                    return modelMapper.map(updatedProduct, ProductDTO.class);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
+
+        validateProductDTO(productDTO);
+        modelMapper.map(productDTO, existingProduct);
+        Product updatedProduct = productRepository.save(existingProduct);
+        return modelMapper.map(updatedProduct, ProductDTO.class);
+    }
+
+    private void validateProductDTO(ProductDTO productDTO) {
+        if (productDTO.getName() == null || productDTO.getName().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be null or empty");
+        }
+        if (productDTO.getPrice() == null) {
+            throw new IllegalArgumentException("Product price cannot be null");
+        }
+        if (productDTO.getQuantity() == null) {
+            throw new IllegalArgumentException("Product quantity cannot be null");
+        }
+        if (productDTO.getCategoryName() == null) {
+            throw new IllegalArgumentException("Product category cannot be null");
+        }
+
     }
 
 
@@ -69,15 +83,27 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> searchByCategoryName(String categoryName) {
         return productRepository.findByCategoryNameContainingIgnoreCase(categoryName)
             .stream()
-            .map(this::convertToDto)
+            .map(product -> modelMapper.map(product, ProductDTO.class))
             .collect(Collectors.toList());
     }
 
     private ProductDTO convertToDto(Product product) {
-        ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
-        if(product.getCategory() != null) {
-            productDTO.setCategoryName(product.getCategory().getName());
-        }
-        return productDTO;
+        return modelMapper.map(product, ProductDTO.class);
+    }
+
+    @Override
+    public List<ProductDTO> searchByProductName(String productName) {
+        return productRepository.findByProductNameContainingIgnoreCase(productName)
+          .stream()
+          .map(product -> modelMapper.map(product, ProductDTO.class))
+          .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> searchProducts(String searchTerm) {
+        return productRepository.searchByTerm(searchTerm)
+               .stream()
+               .map(product -> modelMapper.map(product, ProductDTO.class))
+               .collect(Collectors.toList());
     }
 }
