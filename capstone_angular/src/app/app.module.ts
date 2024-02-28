@@ -21,6 +21,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {FlexModule} from "@angular/flex-layout";
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     ReactiveFormsModule,
     MatSelectModule,
     MatGridListModule,
-    FlexModule
+    FlexModule,
+    MatListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

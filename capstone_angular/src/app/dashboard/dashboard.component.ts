@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/product/product.service';
 import { Product } from '../model/product.model';
 import {Router} from "@angular/router";
+import {AuthService} from "../service/auth/AuthService";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   totalProducts: number = 0;
   totalQuantity: number = 0;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
@@ -31,15 +32,9 @@ export class DashboardComponent implements OnInit {
   }
 
   applySearch(searchTerm: string): void {
-    if (!searchTerm) {
-      this.products = this.allProducts;
-    } else {
-      this.products = this.allProducts.filter(product => {
-        const term = searchTerm.toLowerCase();
-        return product.name.toLowerCase().includes(term);
-      });
+    if (searchTerm) {
+      this.router.navigate(['/search-results'], { queryParams: { term: searchTerm } });
     }
-    this.calculateTotals();
   }
 
 
@@ -63,5 +58,9 @@ export class DashboardComponent implements OnInit {
 
   updateProduct(product: Product): void {
     this.router.navigate(['/products/update', product.id]);  }
+
+  onLogout() {
+    this.authService.logout();
+  }
 
 }

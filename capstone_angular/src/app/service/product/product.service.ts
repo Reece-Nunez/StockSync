@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, Observable, pipe, throwError} from 'rxjs';
 import { Product } from '../../model/product.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Product } from '../../model/product.model';
 })
 export class ProductService {
   private apiUrl = 'http://localhost:8081/api/products';
+  private searchUrl = 'http://localhost:8081/api/search/results';
 
   constructor(private http: HttpClient) { }
 
@@ -43,5 +44,10 @@ export class ProductService {
 
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+  }
+
+  searchProducts(term: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.searchUrl}?searchTerm=${term}`)
+      .pipe(catchError(this.handleError));
   }
 }

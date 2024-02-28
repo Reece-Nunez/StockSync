@@ -27,12 +27,6 @@ public class SearchController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping
-    public List<Object> search(@RequestParam("term") String searchTerm) {
-        return searchService.searchAll(searchTerm);
-    }
-
-
     @GetMapping("/results")
     public List<ProductDTO> searchProducts(@RequestParam String searchTerm) {
         return productRepository.searchByTerm(searchTerm).stream()

@@ -1,1 +1,20 @@
-<p>search-results works!</p>
+<div class="search-results-container">
+  <mat-card>
+    <mat-card-header style="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 30px">
+      <mat-card-title style="margin-bottom: 16px; color: white;">Search Results</mat-card-title>
+      <button mat-raised-button color="primary" (click)="goHome()">Go Home</button>
+    </mat-card-header>
+    <mat-card-content style="color: white;" *ngIf="products.length; else noResultsTemplate">
+      <div *ngFor="let product of products">
+        <!-- Customize this part as needed -->
+        <h4 mat-line>{{ product.name }}</h4>
+        <p mat-line>Price: {{ product.price }}</p>
+        <p mat-line>ID: {{ product.quantity }}</p>
+        <p mat-line>Description: {{ product.description }}</p>
+      </div>
+    </mat-card-content>
+    <ng-template #noResultsTemplate>
+      <p>No results found.</p>
+    </ng-template>
+  </mat-card>
+</div>

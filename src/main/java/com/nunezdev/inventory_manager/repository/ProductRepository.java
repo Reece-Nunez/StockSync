@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(concat('%', :searchTerm, '%')) OR LOWER (p.description) LIKE LOWER(concat('%', :searchTerm, '%'))")
-    List<ProductDTO> searchByTerm(String searchTerm);
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(concat('%', :searchTerm, '%')) OR LOWER(p.description) LIKE LOWER(concat('%', :searchTerm, '%'))")
+    List<Product> searchByTerm(String searchTerm);
 
     @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(concat('%', :searchTerm, '%'))")
     List<ProductDTO> findByProductNameContainingIgnoreCase(String searchTerm);
