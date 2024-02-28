@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     } else {
       this.products = this.allProducts.filter(product => {
         const term = searchTerm.toLowerCase();
-        const matchesName = product.name.toLowerCase().includes(term);
+        return product.name.toLowerCase().includes(term);
       });
     }
     this.calculateTotals();

@@ -2,6 +2,7 @@
   <mat-form-field style="min-width: 300px;" appearance="fill">
     <mat-label style="color: white;">Search</mat-label>
     <input matInput #searchInput (keyup)="applySearch(searchInput.value)" placeholder="Search by name">
+    <button mat-raised-button color="accent" (click)="applySearch(searchInput.value)">Search</button>
   </mat-form-field>
 </div>
 <div class="summary">
