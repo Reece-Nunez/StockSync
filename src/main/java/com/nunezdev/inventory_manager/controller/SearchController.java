@@ -33,7 +33,7 @@ public class SearchController {
     }
 
 
-    @GetMapping("/products")
+    @GetMapping("/results")
     public List<ProductDTO> searchProducts(@RequestParam String searchTerm) {
         return productRepository.searchByTerm(searchTerm).stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))

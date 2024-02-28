@@ -20,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {FlexModule} from "@angular/flex-layout";
 import { ProductCreateComponent } from './product-create/product-create.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProductCreateComponent } from './product-create/product-create.componen
     NavigationComponent,
     RegisterComponent,
     DashboardComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,

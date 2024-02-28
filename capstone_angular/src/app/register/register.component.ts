@@ -21,7 +21,7 @@ export class RegisterComponent {
       next: (data) => {
         console.log(data);
         alert('User created successfully');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.log('There was an error!', error);
