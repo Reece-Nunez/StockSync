@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../service/product/product.service";
 import {Router} from "@angular/router";
-import {CategoryService} from "../service/category/category.service";
 import {Product} from "../model/product.model";
 import {Observable} from "rxjs";
-import {CategoryModel} from "../model/category.model";
 
 @Component({
   selector: 'app-product-create',
@@ -12,53 +10,22 @@ import {CategoryModel} from "../model/category.model";
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-  product = {
+  product: Product = {
     name: '',
     description: '',
     price: '0.00',
     quantity: null,
-    category: undefined
   };
 
-  categories: CategoryModel[] = [];
-
-  constructor(private productService: ProductService, private categoryService: CategoryService, private router: Router) { }
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
-    this.fetchCategories();
   }
 
 
-
-  fetchCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (categories) => this.categories = categories,
-      error: (error) => console.error(error)
-    });
-  }
-
-  createProduct(product: Partial<Product>): void {
-    // Check if the category is new and needs to be added to the database
-    if (!this.categories.find(c => c.name === this.product.category)) {
-      this.categoryService.addCategory({ name: this.product.category }).subscribe({
-        next: (category) => {
-          this.product.category = category.id; // Use the new category's ID
-          this.submitProduct(); // Now submit the product with the new category
-        },
-        error: (error) => console.error(error)
-      });
-    } else {
-      this.submitProduct(); // Submit the product if the category already exists
-    }
-  }
-
-  submitProduct() {
-    const submissionProduct: Product = {
-      ...this.product,
-      category: this.product.category ?? null
-    };
-
-    this.productService.createProduct(submissionProduct).subscribe({
+  submitProduct(): void {
+    // Directly use this.product, no need to create a new variable if you're not modifying it
+    this.productService.createProduct(this.product).subscribe({
       next: (data) => {
         console.log(data);
         alert('Product created successfully!');
@@ -68,19 +35,20 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
-  validateNumber(event: KeyboardEvent) {
+  validateNumber(event: KeyboardEvent): void {
     const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter', 'Tab'];
     if (!allowedKeys.includes(event.key) && !event.key.match(/^\d$/)) {
       event.preventDefault();
     }
   }
 
-  formatPrice(event: any) {
-    let value = event.target.value.replace(/\D/g, ''); // Remove non-digit characters
+  formatPrice(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    let value = target.value.replace(/\D/g, ''); // Remove non-digit characters
     if (value === '') value = '0';
     let intValue = parseInt(value, 10);
     let formattedValue = (intValue / 100).toFixed(2); // Convert to decimal format
     this.product.price = formattedValue;
-    event.target.value = formattedValue; // Update input field with formatted value
+    target.value = formattedValue; // Update input field with formatted value
   }
 }

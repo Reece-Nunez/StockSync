@@ -34,13 +34,14 @@ export class DashboardComponent implements OnInit {
     if (!searchTerm) {
       this.products = this.allProducts;
     } else {
-      this.products = this.allProducts.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (product.category && product.category.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+      this.products = this.allProducts.filter(product => {
+        const term = searchTerm.toLowerCase();
+        const matchesName = product.name.toLowerCase().includes(term);
+      });
     }
     this.calculateTotals();
   }
+
 
   private calculateTotals(): void {
     this.totalProducts = this.products.length;

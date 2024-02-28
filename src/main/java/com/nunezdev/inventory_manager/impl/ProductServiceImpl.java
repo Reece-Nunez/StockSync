@@ -67,9 +67,6 @@ public class ProductServiceImpl implements ProductService {
         if (productDTO.getQuantity() == null) {
             throw new IllegalArgumentException("Product quantity cannot be null");
         }
-        if (productDTO.getCategoryName() == null) {
-            throw new IllegalArgumentException("Product category cannot be null");
-        }
 
     }
 
@@ -77,14 +74,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public List<ProductDTO> searchByCategoryName(String categoryName) {
-        return productRepository.findByCategoryNameContainingIgnoreCase(categoryName)
-            .stream()
-            .map(product -> modelMapper.map(product, ProductDTO.class))
-            .collect(Collectors.toList());
     }
 
     private ProductDTO convertToDto(Product product) {

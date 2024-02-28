@@ -35,7 +35,7 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
-    private Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -105,7 +105,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while setting the password");
         }
     }
-
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
