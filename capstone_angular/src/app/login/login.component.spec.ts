@@ -9,13 +9,22 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {Router} from "@angular/router";
+import {of} from "rxjs";
+import {AuthService} from "../service/auth/AuthService";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let mockAuthService: any;
+  let router: Router;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    mockAuthService = {
+      login: jasmine.createSpy('login')
+        .and.returnValue(of({ token: 'fake-token'}))
+    };
+    await TestBed.configureTestingModule({
       imports: [
         MatFormFieldModule,
         MatInputModule,
@@ -27,14 +36,34 @@ describe('LoginComponent', () => {
         MatToolbarModule,
         HttpClientTestingModule
       ],
-      declarations: [LoginComponent]
-    });
+      declarations: [LoginComponent],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: mockAuthService
+        }
+      ]
+    }).compileComponents();
+
+
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigate');
+    spyOn(window, 'alert');
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+ it('Should login successfully and navigate to dashboard', () => {
+   component.username = 'testuser';
+   component.password = 'password123';
+
+   component.login();
+
+   expect(mockAuthService.login).toHaveBeenCalledWith('testuser', 'password123');
+   expect(localStorage.getItem('token')).toBe('fake-token');
+   expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+   expect(window.alert).toHaveBeenCalledWith('Login successful');
+
+ })
 });
