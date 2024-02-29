@@ -48,8 +48,9 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
-    alert(`Are you sure you want to delete ${product.name}?`);
-    if (!product.id) return;
+    const confirmDelete = confirm('Are you sure you want to delete '+ product.name + '?');
+
+    if (!confirmDelete || !product.id) return;
     this.productService.deleteProduct(product.id).subscribe({
       next: () => {
         alert('Product deleted successfully!');

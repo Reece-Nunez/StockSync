@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../service/product/product.service';
 import {Product} from '../model/product.model';
 import {ActivatedRoute, Router} from "@angular/router";
+import {last} from "rxjs";
 
 @Component({
   selector: 'app-search-results',
@@ -31,4 +32,6 @@ export class SearchResultsComponent implements OnInit {
   goHome() {
     this.router.navigate(['/dashboard']);
   }
+
+  protected readonly last = last;
 }
