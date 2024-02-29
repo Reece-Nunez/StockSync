@@ -30,4 +30,7 @@ export class RegisterComponent {
     })
   }
 
+  goHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
 }

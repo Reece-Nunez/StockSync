@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
+    alert(`Are you sure you want to delete ${product.name}?`);
     if (!product.id) return;
     this.productService.deleteProduct(product.id).subscribe({
       next: () => {
@@ -59,10 +60,10 @@ export class DashboardComponent implements OnInit {
   }
 
   updateProduct(product: Product): void {
-    this.router.navigate(['/products/update', product.id]);  }
+    this.router.navigate(['/products/update/', product.id]);  }
 
   onLogout() {
-    this.authService.logout();
+    this.authService.logout()
     alert('You have been logged out');
   }
 

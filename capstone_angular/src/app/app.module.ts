@@ -22,6 +22,7 @@ import {FlexModule} from "@angular/flex-layout";
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import {MatListModule} from "@angular/material/list";
+import { UpdateProductComponent } from './update-product/update-product.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatListModule} from "@angular/material/list";
     RegisterComponent,
     DashboardComponent,
     ProductCreateComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    UpdateProductComponent
   ],
   imports: [
     BrowserModule,
