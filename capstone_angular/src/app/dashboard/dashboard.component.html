@@ -1,5 +1,5 @@
-<div style="padding: 10px; display: flex; flex-direction: row; justify-content: space-between;" class="search-container">
-  <mat-form-field style="min-width: 300px;" appearance="fill">
+<div style="padding: 10px; display: flex; flex-direction: row; justify-content: space-between; background-color: lightgray; align-items: center;" class="search-container">
+  <mat-form-field style="min-width: 400px;" appearance="fill">
     <mat-label style="color: white;">Search</mat-label>
     <div style="display:flex; flex-direction: row; align-items: center">
       <input matInput #searchInput placeholder="Search by name">
@@ -9,8 +9,8 @@
   <div>
     <button mat-raised-button color="accent" (click)="this.router.navigate(['/report'])">Generate Product Report</button>
   </div>
-  <div style="display: flex; flex-direction: row;">
-    <p style="margin-right: 30px">User: {{ username }}</p>
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <p style="margin-right: 30px; font-size: 20px">User: {{ username }}</p>
     <button mat-raised-button color="accent" (click)="onLogout()">Logout</button>
   </div>
 </div>

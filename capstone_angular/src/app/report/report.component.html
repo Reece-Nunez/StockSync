@@ -2,6 +2,7 @@
   <button mat-raised-button color="accent" (click)="this.router.navigate(['/dashboard'])">Go Home</button>
 </div>
 <div class="mat-elevation-z8">
+  <h2 style="display:flex; justify-content: center; margin-top: 100px; font-size: 24px;">Report: </h2>
   <table mat-table [dataSource]="products" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
