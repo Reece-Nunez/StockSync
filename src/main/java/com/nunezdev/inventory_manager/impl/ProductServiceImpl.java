@@ -5,12 +5,11 @@ import com.nunezdev.inventory_manager.entity.Product;
 import com.nunezdev.inventory_manager.repository.ProductRepository;
 import com.nunezdev.inventory_manager.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productDto, Product.class);
 
         if (product.getDateCreated() == null) {
-            product.setDateCreated(ZonedDateTime.now());
+            product.setDateCreated(LocalDate.now());
         }
 
         Product savedProduct = productRepository.save(product);
