@@ -14,10 +14,12 @@ export class DashboardComponent implements OnInit {
   allProducts: Product[] = [];
   totalProducts: number = 0;
   totalQuantity: number = 0;
+  username: string | null = '';
 
   constructor(private productService: ProductService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.username = localStorage.getItem('username');
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.allProducts = data;
@@ -61,6 +63,7 @@ export class DashboardComponent implements OnInit {
 
   onLogout() {
     this.authService.logout();
+    alert('You have been logged out');
   }
 
 }

@@ -51,4 +51,7 @@ export class ProductCreateComponent implements OnInit {
     this.product.price = formattedValue;
     target.value = formattedValue; // Update input field with formatted value
   }
-}
+
+  goHome(): void {
+  this.router.navigate(['/dashboard']);
+}}

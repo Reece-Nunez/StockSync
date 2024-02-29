@@ -1,4 +1,7 @@
 <div class="create-product-content">
+  <div style="position: absolute; top: 0; padding-top: 20px;">
+    <button mat-raised-button color="accent" (click)="goHome()">Go Home</button>
+  </div>
   <mat-card>
     <form style="padding: 20px;" fxLayout="column" fxLayoutAlign="center center" #productForm="ngForm" (ngSubmit)="submitProduct()">
       <mat-form-field>
