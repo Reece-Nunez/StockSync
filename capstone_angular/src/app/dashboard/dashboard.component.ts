@@ -64,7 +64,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/products/update/', product.id]);  }
 
   onLogout() {
-    this.authService.logout()
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
     alert('You have been logged out');
   }
 
