@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +44,11 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO createProduct(ProductDTO productDto) {
         validateProductDTO(productDto);
         Product product = modelMapper.map(productDto, Product.class);
+
+        if (product.getDateCreated() == null) {
+            product.setDateCreated(ZonedDateTime.now());
+        }
+
         Product savedProduct = productRepository.save(product);
         return modelMapper.map(savedProduct, ProductDTO.class);
     }

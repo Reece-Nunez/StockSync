@@ -23,6 +23,8 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { SearchResultsComponent } from './search-results/search-results.component';
 import {MatListModule} from "@angular/material/list";
 import { UpdateProductComponent } from './update-product/update-product.component';
+import { ReportComponent } from './report/report.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { UpdateProductComponent } from './update-product/update-product.componen
     DashboardComponent,
     ProductCreateComponent,
     SearchResultsComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { UpdateProductComponent } from './update-product/update-product.componen
     MatSelectModule,
     MatGridListModule,
     FlexModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

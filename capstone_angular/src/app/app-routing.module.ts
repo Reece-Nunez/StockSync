@@ -6,6 +6,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ProductCreateComponent} from "./product-create/product-create.component";
 import {SearchResultsComponent} from "./search-results/search-results.component";
 import {UpdateProductComponent} from "./update-product/update-product.component";
+import {ReportComponent} from "./report/report.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'products/create', component: ProductCreateComponent },
   { path: 'search-results', component: SearchResultsComponent },
-  { path: 'products/update/:id', component: UpdateProductComponent }
+  { path: 'products/update/:id', component: UpdateProductComponent },
+  { path: 'report', component: ReportComponent },
 ];
 
 @NgModule({

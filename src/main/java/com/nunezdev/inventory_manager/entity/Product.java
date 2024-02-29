@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name = "products")
 @Getter @Setter @ToString @NoArgsConstructor
@@ -27,4 +31,6 @@ public class Product extends BaseEntity {
 
     @NotNull
     private Integer quantity;
+
+    private ZonedDateTime dateCreated;
 }

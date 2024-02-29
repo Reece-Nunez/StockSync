@@ -24,10 +24,18 @@ export class ProductCreateComponent implements OnInit {
 
 
   submitProduct(): void {
-    // Directly use this.product, no need to create a new variable if you're not modifying it
-    this.productService.createProduct(this.product).subscribe({
+    const formattedDate = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
+    const productWithDate = {
+      ...this.product,
+      dateCreated: formattedDate
+    };
+    console.log(productWithDate);
+    this.productService.createProduct(productWithDate).subscribe({
       next: (data) => {
-        console.log(data);
         alert('Product created successfully!');
         this.router.navigate(['/dashboard']);
       },
