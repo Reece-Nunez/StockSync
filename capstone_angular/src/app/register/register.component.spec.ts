@@ -11,13 +11,25 @@ import {MatCardModule} from "@angular/material/card";
 import {MatOptionModule} from "@angular/material/core";
 import {MatTableModule} from "@angular/material/table";
 import {MatSelectModule} from "@angular/material/select";
+import {Router} from "@angular/router";
+import {of} from "rxjs";
+import {UserService} from "../service/user/UserService";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let mockUserService: any;
+  let router: Router;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    mockUserService = {
+      createUser: jasmine.createSpy('createUser').and.returnValue(of({
+        message: 'User created successfully'
+      }))
+    };
+
+
+    await TestBed.configureTestingModule({
       imports: [
         MatFormFieldModule,
         MatInputModule,
@@ -32,14 +44,37 @@ describe('RegisterComponent', () => {
         MatCardModule,
         HttpClientTestingModule
       ],
-      declarations: [RegisterComponent]
-    });
+      declarations: [RegisterComponent],
+      providers: [
+        {
+          provide:
+          UserService,
+          useValue: mockUserService
+        }]
+    }).compileComponents();
+
+
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('Should create a user and navigate to dashboard', (done) => {
+    spyOn(router, 'navigate');
+
+    component.user = {
+      username: 'Test User',
+      password: 'password123',
+      roleName: 'ADMIN'
+    };
+
+    component.register();
+
+    fixture.whenStable().then(() => {
+      expect(mockUserService.createUser).toHaveBeenCalledWith(component.user);
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+      done();
+    })
+  })
 });

@@ -22,7 +22,7 @@ export class AuthService {
       body: { username, password } });
   }
 
-  logout() {
+  onLogout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
