@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,7 +50,9 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product savedProduct = productRepository.save(product);
-        return modelMapper.map(savedProduct, ProductDTO.class);
+        ProductDTO savedProductDTO = modelMapper.map(savedProduct, ProductDTO.class);
+
+        return Optional.ofNullable(savedProductDTO).orElse(new ProductDTO());
     }
 
     @Override
