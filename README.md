@@ -27,3 +27,6 @@ If you need additional support, please navigate to the course page and reach out
 
 ## FUTURE USE
 Take this opportunity to create or add to a simple resume portfolio to highlight and showcase your work for future use in career search, experience, and education!
+
+## HEROKU TICKET URL
+https://help.heroku.com/sharing/2b2ed64f-821e-42db-99fd-df3a00a8b4a6
