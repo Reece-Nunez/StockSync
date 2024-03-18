@@ -1,0 +1,50 @@
+.summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+  box-shadow: 3px 0px 6px rgba(0,0,0,0.24);
+}
+
+.content {
+  margin: 20px;
+}
+
+.mat-form-field {
+  width: 95%;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 75%;
+  margin-top: 10px;
+}
+
+mat-grid-list {
+  width: 100%;
+  margin: 20px 0;
+}
+
+mat-card {
+  transition: box-shadow 0.3s;
+}
+
+mat-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

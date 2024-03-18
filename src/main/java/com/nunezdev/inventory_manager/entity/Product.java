@@ -19,15 +19,11 @@ public class Product extends BaseEntity {
     @NotNull
     @Size(min = 2, max = 100)
     private String name;
-
     @Size(max=200)
     private String description;
-
     @NotNull
     private Double price;
-
     @NotNull
     private Integer quantity;
-
     private LocalDate dateCreated;
 }

@@ -1,0 +1,24 @@
+<div class="centered-content">
+  <mat-toolbar class="title-toolbar" fxLayout="column" fxLayoutAlign="center center" color="primary">
+    <span fxFlexAlign="center" style="font-size: 32px;">SoftSync</span>
+  </mat-toolbar>
+  <mat-card class="login-card" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header>
+      <mat-card-title style="margin-bottom: 16px; font-size: 24px;">Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form fxLayout="column" fxLayoutGap="16px" class="login-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput [(ngModel)]="username" name="username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="password" name="password" type="password" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Login</button>
+        <button mat-raised-button color="accent" (click)="createUser()">Register New User</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
