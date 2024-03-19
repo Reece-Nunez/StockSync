@@ -14,6 +14,9 @@ export class DashboardComponent implements OnInit {
   totalProducts: number = 0;
   totalQuantity: number = 0;
   username: string | null = '';
+  totalProductPrice: number = 0;
+  productsOutOfStock: Product[] = [];
+  lowStock: Product[] = [];
 
   constructor(private productService: ProductService, protected router: Router) {}
 
@@ -44,6 +47,9 @@ export class DashboardComponent implements OnInit {
     this.totalQuantity = this.products.reduce((acc, product) => {
       return acc + (product.quantity !== null ? product.quantity : 0);
     }, 0);
+    this.totalProductPrice = this.products.reduce((acc, product) => acc + ((+product.price || 0) * (product.quantity || 0)), 0);
+    this.productsOutOfStock = this.products.filter(product => product.quantity === 0);
+    this.lowStock = this.products.filter(product => (product.quantity ?? 0) <= 5);
   }
 
   deleteProduct(product: Product): void {

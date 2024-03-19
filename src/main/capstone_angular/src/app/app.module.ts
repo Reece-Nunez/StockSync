@@ -26,6 +26,7 @@ import { UpdateProductComponent } from './update-product/update-product.componen
 import { ReportComponent } from './report/report.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     ProductCreateComponent,
     SearchResultsComponent,
     UpdateProductComponent,
-    ReportComponent
+    ReportComponent,
+    ProductPageComponent
   ],
   imports: [
     BrowserModule,

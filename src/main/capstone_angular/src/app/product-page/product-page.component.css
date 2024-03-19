@@ -1,0 +1,11 @@
+.top-bar {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-evenly;
+}

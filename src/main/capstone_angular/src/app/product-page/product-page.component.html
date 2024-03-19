@@ -1,0 +1,23 @@
+<div class="top-bar">
+  <button class="product-button" mat-raised-button color="primary" routerLink="/products/create">Add Product</button>
+  <button class="home-button" mat-raised-button color="primary" routerLink="/dashboard">Home</button>
+</div>
+<h1>Products:</h1>
+<mat-grid-list cols="2" rowHeight="300px">
+  <mat-grid-tile *ngFor="let product of products">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>Price: ${{ product.price }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Quantity: {{ product.quantity }}
+        <p>Description: {{ product.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="updateProduct(product)">Edit</button>
+        <button mat-button color="warn" (click)="deleteProduct(product)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

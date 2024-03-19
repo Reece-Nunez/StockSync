@@ -7,10 +7,10 @@ import {Location, LocationStrategy} from '@angular/common';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private authUrl: string;
+  private authUrl: string = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient, private location: Location) {
-    this.authUrl = this.location.prepareExternalUrl('/api/users');
+    //this.authUrl = this.location.prepareExternalUrl('/api/users');
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {

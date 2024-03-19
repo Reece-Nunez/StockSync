@@ -1,39 +1,54 @@
 <!-- Side Navigation -->
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened class="sidenav">
-    <mat-form-field>
-      <mat-label style="font-size: 12px">Search by name</mat-label>
-      <input matInput #searchInput (keyup.enter)="applySearch(searchInput.value)">
-    </mat-form-field>
+    <div class="logo-header">
+      <img style="margin-right: 2px;" class="logo-image" src="favicon.ico">
+      <h3>StockSync</h3>
+    </div>
     <div class="buttons">
-      <button mat-raised-button color="primary" routerLink="/products/create">Add Product</button>
+      <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Products</button>
+      <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Clients</button>
       <button mat-raised-button color="accent" (click)="this.router.navigate(['/report'])">Generate Product Report</button>
-      <button mat-raised-button color="warn" (click)="onLogout()">Logout</button>
+      <button class="logout-button" mat-raised-button color="warn" (click)="onLogout()">Logout</button>
     </div>
     </mat-sidenav>
   <mat-sidenav-content>
     <!-- Main content -->
+    <div class="top-bar">
+      <input class="search-bar" placeholder="Search" matInput #searchInput (keyup.enter)="applySearch(searchInput.value)">
+      <div style="display: inline-flex;">
+        <p class="welcome" style="font-size: 12px">Welcome: {{ this.username }}</p>
+        <button mat-raised-button color="accent" style="font-size: 12px; padding: 2px; height: 30px;" (click)="this.router.navigate(['/report'])">View Profile</button>
+      </div>
+    </div>
     <div class="content">
-      <h2>Total Products: {{ totalProducts }}</h2>
-      <h1>Products:</h1>
-      <mat-grid-list cols="2" rowHeight="300px">
-        <mat-grid-tile *ngFor="let product of products">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>{{ product.name }}</mat-card-title>
-              <mat-card-subtitle>Price: ${{ product.price }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              Quantity: {{ product.quantity }}
-              <p>Description: {{ product.description }}</p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="primary" (click)="updateProduct(product)">Edit</button>
-              <button mat-button color="warn" (click)="deleteProduct(product)">Delete</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+      <h1>Inventory Management KPIs</h1>
+      <div class="grid-container">
+        <div class="grid-item">
+          <h1>Total Products:</h1>
+          <p>{{totalProducts}} Products</p>
+        </div>
+        <div class="grid-item">
+          <h1>Total Inventory:</h1>
+          <p>{{ totalProductPrice | currency: 'USD':'symbol':'1.2-2' }}</p>
+        </div>
+        <div class="grid-item">
+          <h1>Products Out of Stock:</h1>
+          <p>{{ productsOutOfStock.length || '0' }} Products</p>
+        </div>
+        <div class="grid-item">
+          <h1>Products Overstocked:</h1>
+          <p>0 Products</p>
+        </div>
+        <div class="grid-item">
+          <h1>Low Stock:</h1>
+          <p>{{ lowStock.length || '0' }} Products</p>
+        </div>
+        <div class="grid-item">
+          <h1>Number of Clients:</h1>
+          <p>0 Clients</p>
+        </div>
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
