@@ -23,4 +23,9 @@ export class AuthenticationService {
   register(user: { username: string, password: string }): Observable<any> {
     return this.http.post(`${this.authUrl}/register`, user, { observe: 'response' });
   }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('isLoggedIn');
+  }
+
 }

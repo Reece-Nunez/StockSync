@@ -19,8 +19,9 @@ export class LoginComponent {
         // Navigate to dashboard if login is successful
         // Note: Check or adjust this based on your actual response structure
         if (response.status === 200) {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('username', this.username);
           this.router.navigate(['/dashboard']);
-          localStorage.setItem('username', this.username); // Optional: for UI greeting, etc.
           alert('Login successful, welcome: ' + this.username + '!');
         } else {
           // Optionally handle different conditions based on response or status
@@ -40,8 +41,10 @@ export class LoginComponent {
   }
 
   logout(): void {
-    this.authService.logout();
+    // Clear authentication state on logout
+    localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
     this.router.navigate(['/login']);
+    alert('You have been logged out.');
   }
 }
