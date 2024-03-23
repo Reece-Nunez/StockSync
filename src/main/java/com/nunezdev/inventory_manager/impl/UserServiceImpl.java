@@ -1,9 +1,12 @@
 package com.nunezdev.inventory_manager.impl;
 
 import com.nunezdev.inventory_manager.dto.UserDTO;
-import com.nunezdev.inventory_manager.entity.AppUser;
+import com.nunezdev.inventory_manager.entity.User;
 import com.nunezdev.inventory_manager.repository.UserRepository;
 import com.nunezdev.inventory_manager.service.UserService;
+
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +26,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verifyLogin(UserDTO userDTO) {
-        AppUser user = modelMapper.map(userDTO, AppUser.class);
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
+        User user = modelMapper.map(userDTO, User.class);
+        Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+        return foundUser.isPresent();
     }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        AppUser user = modelMapper.map(userDTO, AppUser.class);
+        User user = modelMapper.map(userDTO, User.class);
         userRepository.save(user);
         return modelMapper.map(user, UserDTO.class);
     }
