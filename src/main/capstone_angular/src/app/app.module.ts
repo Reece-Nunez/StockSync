@@ -27,6 +27,7 @@ import { ReportComponent } from './report/report.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { ProductPageComponent } from './product-page/product-page.component';
+import {MatOptionModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
     FlexModule,
     MatListModule,
     MatTableModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatOptionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

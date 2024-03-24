@@ -5,6 +5,7 @@ import com.nunezdev.inventory_manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);
         if(createdUser != null) {
@@ -32,6 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public ResponseEntity<Boolean> verifyLogin(@RequestBody UserDTO userDTO) {
         boolean isValidUser = userService.verifyLogin(userDTO);
         if(isValidUser) {

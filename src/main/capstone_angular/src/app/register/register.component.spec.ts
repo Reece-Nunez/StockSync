@@ -65,8 +65,12 @@ describe('RegisterComponent', () => {
 
     component.user = {
       username: 'Test User',
+      firstName: 'Test',
+      lastName: 'User',
+      phoneNumber: '1234567890',
+      email: '<EMAIL>',
       password: 'password123',
-      roleName: 'ADMIN'
+      role: 'ADMIN'
     };
 
     component.register();

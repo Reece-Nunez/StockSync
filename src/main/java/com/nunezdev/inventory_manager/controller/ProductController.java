@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class ProductController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         log.info("Fetching all products");
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
         log.info("Fetching product with id: {}", id);
         ProductDTO productDTO = productService.getProductById(id);
@@ -43,12 +46,14 @@ public class ProductController {
 
 
     @PostMapping("/create")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         log.info("Creating new product: {}", productDTO.getName());
         return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         log.info("Updating product with id: {}", id);
         try {
@@ -61,6 +66,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER')")
     public ResponseEntity<Object> deleteProduct(@PathVariable Long id) {
         log.info("Deleting product with id: {}", id);
         productService.deleteProduct(id);

@@ -5,6 +5,7 @@ import com.nunezdev.inventory_manager.repository.ProductRepository;
 import com.nunezdev.inventory_manager.service.SearchService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class SearchController {
     }
 
     @GetMapping("/results")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
     public List<ProductDTO> searchProducts(@RequestParam String searchTerm) {
         return productRepository.searchByTerm(searchTerm).stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
