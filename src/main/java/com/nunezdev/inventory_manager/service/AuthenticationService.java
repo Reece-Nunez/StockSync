@@ -1,7 +1,13 @@
 package com.nunezdev.inventory_manager.service;
 
+import com.nunezdev.inventory_manager.dto.UserDTO;
+import com.nunezdev.inventory_manager.exception.CustomAuthenticationFailedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +18,10 @@ import com.nunezdev.inventory_manager.repository.UserRepository;
 @Service
 public class AuthenticationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+
     private final UserRepository repository;
-    
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
@@ -41,21 +49,33 @@ public class AuthenticationService {
         user = repository.save(user);
 
         String token = jwtService.generateToken(user);
+        String role = user.getRole().name();
 
-        return new AuthenticationResponse(token);
+        return new AuthenticationResponse(token, role);
     }
 
-    public AuthenticationResponse authenticate(User request) {
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-        );
+    public AuthenticationResponse authenticate(UserDTO userDTO) {
+        try {
+            // Attempt authentication with the provided credentials
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(userDTO.getUsername(), userDTO.getPassword())
+            );
 
-        User user = repository.findByUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.generateToken(user);
+            // Look up the fully populated User object from the database
+            User user = repository.findByUsername(userDTO.getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userDTO.getUsername()));
 
-        return new AuthenticationResponse(token);
+            // Generate a JWT token for the authenticated user
+            String token = jwtService.generateToken(user);
+            // Get Role name
+            String role = user.getRole().name();
+
+            // Return the token encapsulated in an AuthenticationResponse
+            return new AuthenticationResponse(token, role);
+        } catch (AuthenticationException e) {
+            // Log the error and return an appropriate response
+            logger.error("Authentication failed for user: " + userDTO.getUsername(), e);
+            throw new CustomAuthenticationFailedException("Authentication failed", e);
+        }
     }
-
-
-
 }

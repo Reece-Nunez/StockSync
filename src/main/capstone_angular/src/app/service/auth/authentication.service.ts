@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {Location, LocationStrategy} from '@angular/common';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,12 @@ export class AuthenticationService {
     //this.authUrl = this.location.prepareExternalUrl('/api/users');
   }
 
-  login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post(`${this.authUrl}/login`, credentials, { observe: 'response' });
+  login(credentials: { username: string, password: string}): Observable<any> {
+    return this.http.post(`${this.authUrl}/login`, credentials, { observe: 'response' })
+      .pipe(map(response => {
+        const token = response.headers.get('Authorization')?.split(' ')[1];
+        return { token, body: response.body };
+      }));
   }
 
   logout(): Observable<any> {
@@ -25,7 +30,18 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('isLoggedIn');
-  }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
 
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const isExpired = (decodedToken?.exp ?? 0) < Date.now() / 1000;
+      return !isExpired;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return false;
+    }
+  }
 }

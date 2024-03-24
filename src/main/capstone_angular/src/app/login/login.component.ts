@@ -16,15 +16,25 @@ export class LoginComponent {
   onSubmit(): void {
     this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
+        console.log('Login Response:', response); // Log the response object to console
+        const token = response.body.token;
+
+        if (token) {
+          // Proceed with storing the token and other information
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', this.username);
-          localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('role', response.body.role);
+          localStorage.setItem('token', token); // Save the extracted token
           alert('Login successful, welcome: ' + this.username + '!');
+          this.router.navigate(['/dashboard']);
+        } else {
+          // Handle the missing token scenario
+          console.error('No token provided in response');
+        }
       },
       error: (error) => {
         console.error('Login failed:', error);
-        alert('No user found with that username');
+        alert('Login failed. Please check your credentials.');
       }
     });
   }
@@ -38,6 +48,8 @@ export class LoginComponent {
     // Clear authentication state on logout
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
     alert('You have been logged out.');
   }

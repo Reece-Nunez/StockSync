@@ -2,6 +2,8 @@ package com.nunezdev.inventory_manager.controller;
 
 import java.util.List;
 
+import com.nunezdev.inventory_manager.entity.AuthenticationResponse;
+import com.nunezdev.inventory_manager.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,12 @@ import com.nunezdev.inventory_manager.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @PostMapping("/register")
@@ -41,12 +45,16 @@ public class UserController {
 
     @PostMapping("/login")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'OWNER')")
-    public ResponseEntity<Boolean> verifyLogin(@RequestBody UserDTO userDTO) {
-        boolean isValidUser = userService.verifyLogin(userDTO);
-        if(isValidUser) {
-            return new ResponseEntity<>(isValidUser, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(isValidUser, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
+        try {
+            AuthenticationResponse authResponse = authenticationService.authenticate(userDTO);
+            if(authResponse!= null) {
+                return ResponseEntity.ok(authResponse);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during the login process");
         }
     }
 

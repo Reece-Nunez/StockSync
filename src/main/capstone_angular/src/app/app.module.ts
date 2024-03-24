@@ -29,6 +29,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import { ProductPageComponent } from './product-page/product-page.component';
 import {MatOptionModule} from "@angular/material/core";
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { UsermanagementComponent } from './usermanagement/usermanagement.compone
     MatSidenavModule,
     MatOptionModule,
   ],
-  providers: [
+  providers: [AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

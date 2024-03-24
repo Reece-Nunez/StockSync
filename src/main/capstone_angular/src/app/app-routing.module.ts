@@ -11,15 +11,49 @@ import {ProductPageComponent} from "./product-page/product-page.component";
 import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'create-user', component: RegisterComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'products/create', component: ProductCreateComponent},
-  { path: 'search-results', component: SearchResultsComponent},
-  { path: 'products/update/:id', component: UpdateProductComponent},
-  { path: 'report', component: ReportComponent},
-  { path: 'product-page', component: ProductPageComponent},
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'create-user',
+    component: RegisterComponent
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products/create',
+    component: ProductCreateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'search-results',
+    component: SearchResultsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products/update/:id',
+    component: UpdateProductComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'report',
+    component: ReportComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'product-page',
+    component: ProductPageComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

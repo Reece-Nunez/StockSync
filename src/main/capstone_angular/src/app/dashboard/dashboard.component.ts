@@ -17,11 +17,13 @@ export class DashboardComponent implements OnInit {
   totalProductPrice: number = 0;
   productsOutOfStock: Product[] = [];
   lowStock: Product[] = [];
+  role: string | null = '';
 
   constructor(private productService: ProductService, protected router: Router) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.allProducts = data;
