@@ -16,7 +16,7 @@ export class RegisterComponent {
     lastName: '',
     email: '',
     phoneNumber: '',
-    role: ''
+    role: 'USER'
   }
 
   constructor(private userService: UserService, private router: Router) { }

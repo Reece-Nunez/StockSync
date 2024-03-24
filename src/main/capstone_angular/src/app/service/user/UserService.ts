@@ -17,4 +17,15 @@ export class UserService {
   createUser(userData: any): Observable<any> {
     return this.http.post(`${this.userUrl}/register`, userData);
   }
+
+  // New method to fetch all users
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.userUrl}`);
+  }
+
+  // New method to update a user's role
+  updateUserRole(userId: number, role: string): Observable<any> {
+    return this.http.put(`${this.userUrl}/${userId}/role`, { role });
+  }
+  
 }

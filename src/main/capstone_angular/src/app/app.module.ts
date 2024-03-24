@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatInputModule} from "@angular/material/input";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {MatCardModule} from "@angular/material/card";
 import { NavigationComponent } from './navigation/navigation.component';
 import { RegisterComponent } from './register/register.component';
@@ -28,6 +28,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { ProductPageComponent } from './product-page/product-page.component';
 import {MatOptionModule} from "@angular/material/core";
+import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatOptionModule} from "@angular/material/core";
     SearchResultsComponent,
     UpdateProductComponent,
     ReportComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    UsermanagementComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ import {MatOptionModule} from "@angular/material/core";
     MatListModule,
     MatTableModule,
     MatSidenavModule,
-    MatOptionModule
+    MatOptionModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

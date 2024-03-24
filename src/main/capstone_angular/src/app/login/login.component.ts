@@ -16,17 +16,11 @@ export class LoginComponent {
   onSubmit(): void {
     this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
-        // Navigate to dashboard if login is successful
-        // Note: Check or adjust this based on your actual response structure
-        if (response.status === 200) {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', this.username);
+          localStorage.setItem('token', response.token);
           this.router.navigate(['/dashboard']);
           alert('Login successful, welcome: ' + this.username + '!');
-        } else {
-          // Optionally handle different conditions based on response or status
-          alert('Login failed. Please check your credentials.');
-        }
       },
       error: (error) => {
         console.error('Login failed:', error);
