@@ -5,6 +5,9 @@
       <img style="margin-right: 2px;" class="logo-image" src="favicon.ico">
       <h3>StockSync</h3>
     </div>
+    <div style="text-align: center;">
+      <p class="welcome" style="font-size: 16px">Welcome: {{ this.username }}</p>
+    </div>
     <div class="buttons">
       <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Products</button>
       <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Clients</button>
@@ -17,7 +20,6 @@
     <div class="top-bar">
       <input class="search-bar" placeholder="Search" matInput #searchInput (keyup.enter)="applySearch(searchInput.value)">
       <div style="display: inline-flex;">
-        <p class="welcome" style="font-size: 12px">Welcome: {{ this.username }}</p>
         <p class="role" style="font-size: 12px">Role: {{ this.role }}</p>
         <button mat-raised-button color="accent" style="font-size: 12px; padding: 2px; height: 30px;" (click)="this.router.navigate(['/report'])">View Profile</button>
       </div>
