@@ -18,14 +18,14 @@ export class DashboardComponent implements OnInit {
   productsOutOfStock: Product[] = [];
   lowStock: Product[] = [];
   role: string | null = '';
-  name : string | null = '';
+  firstName : string | null = '';
 
   constructor(private productService: ProductService, protected router: Router) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
-    this.name = localStorage.getItem('name');
+    this.firstName = localStorage.getItem('firstName');
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.allProducts = data;

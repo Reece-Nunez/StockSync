@@ -29,7 +29,7 @@ export class LoginComponent {
           localStorage.setItem('email', response.body.email);
           localStorage.setItem('role', response.body.role);
           localStorage.setItem('token', token); // Save the extracted token
-          alert('Login successful, welcome: ' + response.body.name + '!');
+          alert('Login successful, welcome: ' + response.body.firstName + '!');
           this.router.navigate(['/dashboard']);
         } else {
           // Handle the missing token scenario
