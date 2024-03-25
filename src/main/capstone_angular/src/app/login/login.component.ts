@@ -23,6 +23,7 @@ export class LoginComponent {
           // Proceed with storing the token and other information
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', this.username);
+          localStorage.setItem('name', response.body.name);
           localStorage.setItem('role', response.body.role);
           localStorage.setItem('name', response.body.name)
           localStorage.setItem('token', token); // Save the extracted token

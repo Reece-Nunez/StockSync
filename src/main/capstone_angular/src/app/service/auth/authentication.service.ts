@@ -8,10 +8,10 @@ import {jwtDecode} from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  //private authUrl: string = 'http://localhost:8080/api/users';
-  private authUrl;
+  private authUrl: string = 'http://localhost:8080/api/users';
+  //private authUrl;
   constructor(private http: HttpClient, private location: Location) {
-    this.authUrl = this.location.prepareExternalUrl('/api/users');
+   // this.authUrl = this.location.prepareExternalUrl('/api/users');
   }
 
   login(credentials: { username: string, password: string}): Observable<any> {
