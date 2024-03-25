@@ -45,12 +45,28 @@ export class ProfileComponent implements OnInit {
 
   toggleEdit(): void {
     this.isEditMode = !this.isEditMode;
-    if (this.isEditMode) {
-      this.profileForm.get('role')?.enable();
+    // Retrieve the user's role from localStorage or another appropriate source
+    const currentUserRole = localStorage.getItem('role');
+    console.log(currentUserRole);
+
+    if (this.isEditMode && currentUserRole === 'OWNER') {
+      // Enable editing of all fields, including the role, only if the current user is an OWNER
+      this.profileForm.enable();
     } else {
+      // If not in edit mode or the user is not an OWNER, disable editing of the role field
+      // but keep other fields editable according to your requirements
+      this.profileForm.disable(); // This disables the entire form; adjust if needed
+      this.profileForm.get('username')?.enable();
+      this.profileForm.get('firstName')?.enable();
+      this.profileForm.get('lastName')?.enable();
+      this.profileForm.get('phoneNumber')?.enable();
+      this.profileForm.get('email')?.enable();
+      // Explicitly disable the role field to prevent editing
       this.profileForm.get('role')?.disable();
     }
   }
+
+
 
   saveProfile(): void {
     if (this.profileForm.valid && this.userId) {
