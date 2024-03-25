@@ -8,10 +8,11 @@ import {Location, LocationStrategy} from "@angular/common";
 })
 
 export class UserService {
-  private userUrl: string = 'http://localhost:8080/api/users';
+  //private userUrl: string = 'http://localhost:8080/api/users';
+  private userUrl;
 
   constructor(private http: HttpClient, private location: Location) {
-    //this.userUrl = this.location.prepareExternalUrl('/api/users');
+    this.userUrl = this.location.prepareExternalUrl('/api/users');
   }
 
   createUser(userData: any): Observable<any> {

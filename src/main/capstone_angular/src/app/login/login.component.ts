@@ -24,8 +24,9 @@ export class LoginComponent {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', this.username);
           localStorage.setItem('role', response.body.role);
+          localStorage.setItem('name', response.body.name)
           localStorage.setItem('token', token); // Save the extracted token
-          alert('Login successful, welcome: ' + this.username + '!');
+          alert('Login successful, welcome: ' + response.body.name + '!');
           this.router.navigate(['/dashboard']);
         } else {
           // Handle the missing token scenario
@@ -50,6 +51,7 @@ export class LoginComponent {
     localStorage.removeItem('username');
     localStorage.removeItem('role');
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
     this.router.navigate(['/login']);
     alert('You have been logged out.');
   }

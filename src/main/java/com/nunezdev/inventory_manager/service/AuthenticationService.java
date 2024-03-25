@@ -50,8 +50,9 @@ public class AuthenticationService {
 
         String token = jwtService.generateToken(user);
         String role = user.getRole().name();
+        String name = user.getFirstName();
 
-        return new AuthenticationResponse(token, role);
+        return new AuthenticationResponse(token, role, name);
     }
 
     public AuthenticationResponse authenticate(UserDTO userDTO) {
@@ -69,9 +70,10 @@ public class AuthenticationService {
             String token = jwtService.generateToken(user);
             // Get Role name
             String role = user.getRole().name();
+            String name = user.getFirstName();
 
             // Return the token encapsulated in an AuthenticationResponse
-            return new AuthenticationResponse(token, role);
+            return new AuthenticationResponse(token, role, name);
         } catch (AuthenticationException e) {
             // Log the error and return an appropriate response
             logger.error("Authentication failed for user: " + userDTO.getUsername(), e);

@@ -14,7 +14,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-import static io.jsonwebtoken.Jwts.*;
 
 @Service
 public class JwtService {

@@ -7,13 +7,15 @@ import {Location, LocationStrategy} from '@angular/common';
   providedIn: 'root'
 })
 export class ProductService {
-  private productUrl: string = 'http://localhost:8080/api/products';
-  private searchUrl: string = 'http://localhost:8080/api/search/results';
+  //private productUrl: string = 'http://localhost:8080/api/products';
+  //private searchUrl: string = 'http://localhost:8080/api/search/results';
+  private productUrl;
+  private searchUrl;
 
 
   constructor(private http: HttpClient, private location: Location) {
-    //this.productUrl = this.location.prepareExternalUrl('/api/products');
-    //this.searchUrl = this.location.prepareExternalUrl('/api/search/results');
+    this.productUrl = this.location.prepareExternalUrl('/api/products');
+    this.searchUrl = this.location.prepareExternalUrl('/api/search/results');
   }
 
   getProducts(): Observable<Product[]> {
