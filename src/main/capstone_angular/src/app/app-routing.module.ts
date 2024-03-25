@@ -9,6 +9,7 @@ import {UpdateProductComponent} from "./update-product/update-product.component"
 import {ReportComponent} from "./report/report.component";
 import {ProductPageComponent} from "./product-page/product-page.component";
 import {AuthGuard} from './guards/auth.guard';
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
     component: ProductPageComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

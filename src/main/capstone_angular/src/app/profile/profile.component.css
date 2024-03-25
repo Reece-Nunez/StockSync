@@ -1,0 +1,31 @@
+.profile-card {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+mat-card-header {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-label {
+  font-weight: 500;
+  margin-right: 15px;
+  flex-basis: 30%;
+}
+
+.profile-content {
+  flex-grow: 1;
+}

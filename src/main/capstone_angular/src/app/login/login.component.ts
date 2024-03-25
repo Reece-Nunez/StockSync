@@ -23,9 +23,11 @@ export class LoginComponent {
           // Proceed with storing the token and other information
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('username', this.username);
-          localStorage.setItem('name', response.body.name);
+          localStorage.setItem('firstName', response.body.firstName);
+          localStorage.setItem('lastName', response.body.lastName);
+          localStorage.setItem('phoneNumber', response.body.phoneNumber);
+          localStorage.setItem('email', response.body.email);
           localStorage.setItem('role', response.body.role);
-          localStorage.setItem('name', response.body.name)
           localStorage.setItem('token', token); // Save the extracted token
           alert('Login successful, welcome: ' + response.body.name + '!');
           this.router.navigate(['/dashboard']);
@@ -52,7 +54,10 @@ export class LoginComponent {
     localStorage.removeItem('username');
     localStorage.removeItem('role');
     localStorage.removeItem('token');
-    localStorage.removeItem('name');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('email');
     this.router.navigate(['/login']);
     alert('You have been logged out.');
   }

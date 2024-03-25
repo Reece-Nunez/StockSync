@@ -21,7 +21,7 @@
       <input class="search-bar" placeholder="Search" matInput #searchInput (keyup.enter)="applySearch(searchInput.value)">
       <div style="display: inline-flex;">
         <p class="role" style="font-size: 12px">Role: {{ this.role }}</p>
-        <button mat-raised-button color="accent" style="font-size: 12px; padding: 2px; height: 30px;" (click)="this.router.navigate(['/report'])">View Profile</button>
+        <button mat-raised-button color="accent" style="font-size: 12px; padding: 2px; height: 30px;" (click)="this.router.navigate(['/profile'])">View Profile</button>
       </div>
     </div>
     <div class="content">

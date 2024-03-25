@@ -1,0 +1,27 @@
+<mat-card class="profile-card">
+  <mat-card-header>
+    <mat-card-title>User Profile</mat-card-title>
+    <button mat-button (click)="toggleEdit()">{{isEditMode ? 'Cancel' : 'Edit'}}</button>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="profileForm">
+      <div *ngIf="!isEditMode">
+        <div *ngFor="let field of ['username', 'firstName', 'lastName', 'phoneNumber', 'email', 'role']">
+          <p>{{field | titlecase}}: {{profileForm.get(field)?.value}}</p>
+        </div>
+      </div>
+      <div *ngIf="isEditMode">
+        <div *ngFor="let field of ['username', 'firstName', 'lastName', 'phoneNumber', 'email', 'role']">
+          <mat-form-field appearance="fill">
+            <mat-label>{{field | titlecase}}</mat-label>
+            <input matInput [formControlName]="field">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="goHome()">Home</button>
+  </mat-card-actions>
+</mat-card>

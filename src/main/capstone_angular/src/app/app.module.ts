@@ -30,6 +30,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import {MatOptionModule} from "@angular/material/core";
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import {AuthGuard} from "./guards/auth.guard";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {AuthGuard} from "./guards/auth.guard";
     UpdateProductComponent,
     ReportComponent,
     ProductPageComponent,
-    UsermanagementComponent
+    UsermanagementComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

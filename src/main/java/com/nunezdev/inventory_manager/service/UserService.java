@@ -13,4 +13,5 @@ public interface UserService {
     UserDTO createUser(UserDTO userDTO);
     List<UserDTO> getAllUsers();
     boolean updateUserRole(Long userId, String role);
+    boolean updateUser(UserDTO userDTO);
 }

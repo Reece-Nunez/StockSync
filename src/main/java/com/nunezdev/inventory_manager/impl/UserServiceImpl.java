@@ -53,18 +53,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-public boolean updateUserRole(Long userId, String roleName) {
-    Optional<User> userOpt = userRepository.findById(userId);
-    if (userOpt.isPresent()) {
-        User user = userOpt.get();
-        try {
-            Role role = Role.valueOf(roleName.toUpperCase());
+    public boolean updateUserRole(Long userId, String roleName) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            try {
+                Role role = Role.valueOf(roleName.toUpperCase());
+                userRepository.save(user);
+                return true;
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid role name: " + roleName);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(UserDTO userDTO) {
+        Optional<User> userOpt = userRepository.findById(userDTO.getId());
+        if(userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setUsername(userDTO.getUsername());
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+            user.setEmail(userDTO.getEmail());
             userRepository.save(user);
             return true;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid role name: " + roleName);
         }
+        return false;
     }
-    return false;
-}
 }
