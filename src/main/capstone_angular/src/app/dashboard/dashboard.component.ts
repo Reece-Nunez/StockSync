@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/product/product.service';
 import { Product } from '../model/product.model';
 import {Router} from "@angular/router";
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,13 +18,15 @@ export class DashboardComponent implements OnInit {
   lowStock: Product[] = [];
   role: string | null = '';
   firstName : string | null = '';
-
+  userId: string | null = '';
   constructor(private productService: ProductService, protected router: Router) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
+    this.userId = localStorage.getItem('userId');
     this.role = localStorage.getItem('role');
     this.firstName = localStorage.getItem('firstName');
+    console.log(this.firstName, this.username, this.role, this.firstName)
     this.productService.getProducts().subscribe({
       next: (data: Product[]) => {
         this.allProducts = data;
@@ -73,9 +74,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/products/update/', product.id]);  }
 
   onLogout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.router.navigate(['/login']);
     alert('You have been logged out');
   }
 
+  isOwnerOrAdmin(): boolean {
+    return this.role === 'OWNER' || this.role === 'ADMIN';
+  }
 }

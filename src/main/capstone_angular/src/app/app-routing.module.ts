@@ -10,6 +10,7 @@ import {ReportComponent} from "./report/report.component";
 import {ProductPageComponent} from "./product-page/product-page.component";
 import {AuthGuard} from './guards/auth.guard';
 import {ProfileComponent} from "./profile/profile.component";
+import {UsermanagementComponent} from "./usermanagement/usermanagement.component";
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'usermanagement',
+    component: UsermanagementComponent,
     canActivate: [AuthGuard]
   }
 ];

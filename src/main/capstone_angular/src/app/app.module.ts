@@ -31,6 +31,8 @@ import {MatOptionModule} from "@angular/material/core";
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import {AuthGuard} from "./guards/auth.guard";
 import { ProfileComponent } from './profile/profile.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { ProfileComponent } from './profile/profile.component';
     ReportComponent,
     ProductPageComponent,
     UsermanagementComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatTableModule,
     MatSidenavModule,
     MatOptionModule,
+    MatDialogModule
   ],
   providers: [AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

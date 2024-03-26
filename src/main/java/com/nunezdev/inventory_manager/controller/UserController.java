@@ -77,6 +77,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('OWNER','ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         userDTO.setId(id);
         boolean updated = userService.updateUser(userDTO);
@@ -85,5 +86,11 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/user/id/{username}")
+    public ResponseEntity<Long> getUserIdByUsername(@PathVariable String username) {
+        Long userId = userService.getUserIdByUsername(username);
+        return ResponseEntity.ok(userId);
     }
 }

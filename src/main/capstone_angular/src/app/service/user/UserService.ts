@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Location, LocationStrategy} from "@angular/common";
 import {User} from "../../model/user.model";
+import {UserDTO} from "../../model/UserDTO.model";
 
 
 @Injectable({
@@ -22,8 +23,8 @@ export class UserService {
   }
 
   // New method to fetch all users
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.userUrl}`);
+  getAllUsers(): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(`${this.userUrl}`);
   }
 
   // New method to update a user's role
@@ -31,7 +32,8 @@ export class UserService {
     return this.http.put(`${this.userUrl}/${userId}/role`, { role });
   }
 
-  updateUser(userData: User): Observable<any> {
+  updateUser(userData: UserDTO): Observable<any> {
     return this.http.put(`${this.userUrl}/${userData.id}`, userData);
   }
+
 }

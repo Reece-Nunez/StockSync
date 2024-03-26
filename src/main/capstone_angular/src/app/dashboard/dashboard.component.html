@@ -7,11 +7,13 @@
     </div>
     <div style="text-align: center;">
       <p class="welcome" style="font-size: 16px">Welcome: {{ this.firstName }}</p>
+      <p>ID: {{ this.userId }}</p>
     </div>
     <div class="buttons">
       <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Products</button>
       <button mat-raised-button color="accent" (click)="this.router.navigate(['product-page'])">Clients</button>
       <button mat-raised-button color="accent" (click)="this.router.navigate(['/report'])">Generate Product Report</button>
+      <button mat-raised-button color="accent" *ngIf="isOwnerOrAdmin()" (click)="this.router.navigate(['usermanagement'])">Users</button>
       <button class="logout-button" mat-raised-button color="warn" (click)="onLogout()">Logout</button>
     </div>
     </mat-sidenav>

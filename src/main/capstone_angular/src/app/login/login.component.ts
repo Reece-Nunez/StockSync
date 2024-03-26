@@ -13,15 +13,17 @@ export class LoginComponent {
 
   constructor(private authService: AuthenticationService, private router: Router) { }
 
-  onSubmit(): void {
+  login(): void {
     this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (response) => {
         console.log('Login Response:', response); // Log the response object to console
         const token = response.body.token;
+        const userId = response.body.id;
 
         if (token) {
           // Proceed with storing the token and other information
           localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userId', userId.toString());
           localStorage.setItem('username', this.username);
           localStorage.setItem('firstName', response.body.firstName);
           localStorage.setItem('lastName', response.body.lastName);
@@ -46,19 +48,5 @@ export class LoginComponent {
   createUser(): void {
     // Navigate to create user page
     this.router.navigate(['create-user']);
-  }
-
-  logout(): void {
-    // Clear authentication state on logout
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('username');
-    localStorage.removeItem('role');
-    localStorage.removeItem('token');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('phoneNumber');
-    localStorage.removeItem('email');
-    this.router.navigate(['/login']);
-    alert('You have been logged out.');
   }
 }

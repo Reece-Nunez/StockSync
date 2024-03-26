@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long getUserIdByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            return user.get().getId();
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+    }
+
+    @Override
     public boolean updateUserRole(Long userId, String roleName) {
         Optional<User> userOpt = userRepository.findById(userId);
         if (userOpt.isPresent()) {
@@ -78,7 +89,10 @@ public class UserServiceImpl implements UserService {
             user.setLastName(userDTO.getLastName());
             user.setPhoneNumber(userDTO.getPhoneNumber());
             user.setEmail(userDTO.getEmail());
+            System.out.println("Current role: " + user.getRole() + ", New role: " + userDTO.getRole());
+            user.setRole(Role.valueOf(userDTO.getRole()));
             userRepository.save(user);
+            System.out.println("Role after save: " + userRepository.findById(userDTO.getId()).get().getRole());
             return true;
         }
         return false;
