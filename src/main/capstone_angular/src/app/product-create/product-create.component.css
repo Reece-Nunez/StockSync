@@ -5,3 +5,46 @@
   flex-direction: column;
   margin-top: 20vh;
 }
+
+/* Adjusts the styling of the top bar and buttons for consistency */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Add some space below the top bar */
+}
+
+.product-button, .home-button {
+  margin: 0 10px; /* Adds margin to buttons for spacing */
+}
+
+/* Styles for the mat-grid-list and mat-grid-tile */
+mat-grid-list {
+  width: 100%;
+  margin: 0 auto; /* Center the grid list */
+}
+
+mat-grid-tile {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
+
+/* Specific styles for mat-card to limit its width */
+mat-card {
+  margin: 10px; /* Adds some spacing around cards */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+}
+
+mat-card-header {
+  align-items: center; /* Center the card header items */
+}
+
+mat-card-content {
+  flex-grow: 1; /* Allow content to expand and push actions to the bottom */
+}
+
+mat-card-actions {
+  justify-content: flex-end; /* Align action buttons to the right */
+}
+

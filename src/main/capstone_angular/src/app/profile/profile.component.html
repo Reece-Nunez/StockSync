@@ -1,6 +1,6 @@
 <mat-card class="profile-card">
   <mat-card-header>
-    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-title>{{this.titleName}}'s Profile</mat-card-title>
     <button mat-button (click)="toggleEdit()">{{isEditMode ? 'Cancel' : 'Edit'}}</button>
   </mat-card-header>
   <mat-card-content>
@@ -17,11 +17,11 @@
             <input matInput [formControlName]="field">
           </mat-form-field>
         </div>
-        <button mat-raised-button color="primary" (click)="saveProfile()">Save</button>
       </div>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="accent" (click)="goHome()">Home</button>
+    <button style="margin: 8px;" mat-raised-button color="primary" (click)="saveProfile()">Save</button>
+    <button style="margin: 8px;" mat-raised-button color="accent" (click)="goHome()">Home</button>
   </mat-card-actions>
 </mat-card>

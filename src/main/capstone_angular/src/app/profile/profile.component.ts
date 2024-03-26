@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   isEditMode: boolean = false;
   role: string | null = '';
   userId: string | null = '';
+  titleName: string | null = '';
+
 
   constructor (private router: Router, private fb: FormBuilder, private userService: UserService) {
     this.profileForm = this.fb.group({
@@ -27,7 +29,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
-    this.userId = localStorage.getItem('userId')
+    this.userId = localStorage.getItem('userId');
+    this.titleName = localStorage.getItem('firstName');
     this.loadProfile();
   }
 

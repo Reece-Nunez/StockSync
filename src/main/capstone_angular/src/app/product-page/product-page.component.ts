@@ -44,10 +44,32 @@ export class ProductPageComponent implements OnInit {
   }
 
   deleteProduct(product: Product): void {
-    // Implementation remains the same
+    const currentUserRole = localStorage.getItem('role');
+    if (currentUserRole === 'ADMIN' || currentUserRole === 'OWNER') {
+      const confirmDelete = confirm(`Are you sure you want to delete ${product.name}?`);
+      if (confirmDelete && product.id !== undefined) {
+        this.productService.deleteProduct(product.id).subscribe({
+          next: () => {
+            alert('Product deleted successfully!');
+            this.products = this.products.filter(p => p.id !== product.id);
+          },
+          error: (error) => {
+            console.error('Error deleting the product:', error);
+            alert('Failed to delete the product.');
+          }
+        });
+      }
+    } else {
+      alert('You do not have permission to delete products.');
+    }
   }
 
   updateProduct(product: Product): void {
-    // Implementation remains the same
+    // Navigate to the update product page with the product ID
+    if(product.id !== undefined) {
+      this.router.navigate(['/products/update', product.id]);
+    } else {
+      alert('Product ID is undefined, cannot navigate to update page.');
+    }
   }
 }

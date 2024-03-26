@@ -3,12 +3,12 @@
   <button class="home-button" mat-raised-button color="primary" routerLink="/dashboard">Home</button>
 </div>
 <h1>Products:</h1>
-<mat-grid-list cols="2" rowHeight="300px">
+<mat-grid-list cols="4" rowHeight="300px">
   <mat-grid-tile *ngFor="let product of products">
-    <mat-card>
+    <mat-card style="max-width: 200px;">
       <mat-card-header>
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-subtitle>Price: ${{ product.price }}</mat-card-subtitle>
+        <mat-card-title style="margin-bottom: 8px;">{{ product.name }}</mat-card-title>
+        <mat-card-subtitle style="margin-bottom: 8px">Price: ${{ product.price }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         Quantity: {{ product.quantity }}
